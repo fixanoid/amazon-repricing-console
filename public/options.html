@@ -1,0 +1,153 @@
+<!doctype html>
+
+<html>
+<head>
+<style>
+#content {
+	width:750px;
+	margin:0px auto;
+	text-align:left;
+	padding-top:5px;
+}
+
+body {
+  background: #fff;
+  font-size: small;
+  margin:5px 0px; padding:0px;
+  text-align:center;
+}
+
+table.sample {
+	border-width: 1px;
+	border-spacing: 0px;
+	border-style: solid;
+	border-color: black;
+	border-collapse: collapse;
+	background-color: white;
+	width: 750px;
+}
+table.sample th {
+	text-align:center;
+	border-width: 1px;
+	padding: 2px;
+	border-style: dotted;
+	border-color: black;
+	background-color: #eee;
+}
+table.sample td {
+	vertical-align: top;
+	border-width: 1px;
+	border-style: dotted;
+	border-color: black;
+	background-color: white;
+	padding: 2px;
+}
+
+</style>
+<script type="text/javascript" src="options.js"></script>
+<script type="text/javascript" src="math-processor.js"></script>
+</head>
+<body>
+<div id="content">
+	<table class="sample">
+		<tr><th colspan="2" style="font-size:large;">Amazon Seller Central Console Options</th></tr>
+
+		<tr><th colspan="2">Exclusions</th></tr>
+		<tr>
+			<td>Exclude sellers</td>
+			<td>
+				<input type="text" value="" id="newExclude"> <button id="addExclude">Add</button>
+			</td>
+		</tr>
+		<tr>
+			<td>Currently excluded:</td>
+			<td id="excludeList"></td>
+		</tr>
+
+		<tr><th colspan="2">Formulas</th></tr>
+		<tr><th colspan="2">available keywords: originalPrice, margin, shipping, merchantPercentage, afnPercentage, lowestCompetitor</th></tr>
+		
+		<tr>
+			<td>AFN Minimum Price</td>
+			<td>
+				<input type="text" value="" id="afnMinimumFormula" style="width:550px;">
+				<div id="afnMinimumFormulaString"></div>
+				<div id="afnMinimumFormulaExample"></div>
+			</td>
+		</tr>
+		<tr>
+			<td>Merchant Minimum Price</td>
+			<td>
+				<input type="text" value="" id="merchantMinimumFormula" style="width:550px;">
+				<div id="merchantMinimumFormulaString"></div>
+				<div id="merchantMinimumFormulaExample"></div>
+			</td>
+		</tr>
+		<tr><th colspan="2">Percentages</th></tr>
+		<tr>
+			<td>AFN overhead</td>
+			<td>
+				<input type="text" value="" id="afnPercentage" style="width:20px;">
+			</td>
+		</tr>
+
+		<tr>
+			<td>Merchant overhead</td>
+			<td>
+				<input type="text" value="" id="merchantPercentage" style="width:20px;">
+			</td>
+		</tr>
+
+		<tr><th colspan="2">Other</th></tr>
+
+		<tr>
+			<td>Step in cents (&cent;)</td>
+			<td>
+				<input type="text" value="" id="step" style="width:20px;">
+			</td>
+		</tr>
+
+		<tr>
+			<td>Default margin ($)</td>
+			<td>
+				<input type="text" value="" id="defaultMargin" style="width:20px;">
+			</td>
+		</tr>
+
+		<tr>
+			<td>Default shipping ($)</td>
+			<td>
+				<input type="text" value="" id="defaultShipping" style="width:20px;">
+			</td>
+		</tr>
+
+		<tr>
+			<td>Compare buckets</td>
+			<td>
+				<input type="checkbox" id="bucketFeatured"> Featured |
+				<input type="checkbox" id="bucketNew"> New |
+				<input type="checkbox" id="bucketUsed"> Used |
+				<input type="checkbox" id="bucketItem"> Use items bucket
+			</td>
+		</tr>
+
+		<tr><th colspan="2">Amazon Information</th></tr>
+
+		<tr>
+			<td>SellerCentral Login</td>
+			<td>
+				<input type="text" value="" id="amazonLogin" style="width:200px;">
+			</td>
+		</tr>
+
+		<tr>
+			<td>SellerCentral Password</td>
+			<td>
+				<input type="password" value="" id="amazonPass" style="width:200px;">
+			</td>
+		</tr>
+
+	</table>
+</div>
+</body>
+</html>
