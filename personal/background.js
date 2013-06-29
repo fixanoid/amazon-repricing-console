@@ -1,19 +1,3 @@
-// TODO out of stock items price set to undefined?
-// TODO when price checking, if all items are in the competitor set, need to page to the next offer page -- complete offer-listing
-// TODO? variable margin
-
-/**
-Operation:
-1) Install extension
-2) Log into https://sellercentral.amazon.com
-3) Set display to the maximum # -- 250 items
-4) Open ASCC options and configure everything
-5) Open database and load items from Amazon
-6) Set original price, shipping, and margin per item
-7) User ASCC to update competitors price
-8) Enable and enjoy
-*/
-
 var VERSION = (function () {
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET', chrome.extension.getURL('manifest.json'), false);
@@ -21,11 +5,15 @@ var VERSION = (function () {
 	return JSON.parse(xhr.responseText).version;
 }());
 
+// frame interval
+var frameSecInterval = 50;
+
 // webRequest stuff: stripping x-frame-options.
 chrome.webRequest.onHeadersReceived.addListener(stripHeaders, {
 	urls: ["http://www.amazon.com/gp/offer-listing/*",
 			   "http://www.amazon.co.uk/gp/offer-listing/*",
-			   "http://www.amazon.de/gp/offer-listing/*"]},
+			   "http://www.amazon.de/gp/offer-listing/*",
+			   "https://sellercentral.amazon.com/ap/signin*"]},
 	['blocking', "responseHeaders"]);
 
 // bucket defaults
@@ -354,7 +342,7 @@ function updateCompetitors() {
 
 			setTimeout(function() {
 					updateCompetitors();
-				}, 45 * 1000);
+				}, frameSecInterval * 1000);
 
 			next = true;
 			break;
@@ -381,7 +369,7 @@ function updateCompetitors() {
 
 		setTimeout(function() {
 				removeFrames();
-			}, 45 * 1000);
+			}, frameSecInterval * 1000);
 	}
 
 	if (!next) {

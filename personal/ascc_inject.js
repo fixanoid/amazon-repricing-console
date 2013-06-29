@@ -58,8 +58,6 @@ ascc = {
 				rowNum['quantity'] = i;
 			} else if ( b == 'Your Price' ) {
 				rowNum['price'] = i;
-			} else if ( b == 'Low Price' ) {
-				rowNum['lowPrice'] = i;
 			} else if ( b == 'Fulfilled By' ) {
 				rowNum['by'] = i;
 			} else if ( b == 'Date Created' ) {
@@ -91,22 +89,26 @@ ascc = {
 					(rowNum['name']) && (this.db[c]['name'] = this.trim(row.children[rowNum['name']].firstChild.innerHTML));
 					(rowNum['created']) && (this.db[c]['created'] = row.children[rowNum['created']].innerHTML);
 					(rowNum['condition']) && (this.db[c]['condition'] = this.trim(row.children[rowNum['condition']].children[0].innerHTML));
+					(rowNum['by']) && (this.db[c]['isAfn'] = this.trim(row.children[rowNum['by']].firstChild.innerHTML) == 'Amazon');
 
 					try {
-						if ( row.children[rowNum['quantity']].children.length == 1 )
-							this.db[c]['isAfn'] = true;
-						else {
-							this.db[c]['quantity'] = row.children[rowNum['quantity']].children[1].value;
-							this.db[c]['quantityInput'] = row.children[rowNum['quantity']].children[0].firstChild;
-
-							// skip the item if quantity is 0
-							if (this.db[c]['quantity'] == 0) continue;
+						if (row.children[rowNum['quantity']].getElementsByTagName("input")[0]) {
+							this.db[c]['quantity'] = row.children[rowNum['quantity']].getElementsByTagName("input")[0].value;
+						} else {
+							this.db[c]['quantity'] = this.trim(row.children[rowNum['quantity']].getElementsByTagName("a")[0].innerHTML);
 						}
 
-						p = document.getElementsByName('price|' + this.db[c]['sku'] + '|' + this.db[c]['asin']);
-						p = p[0];
+						p = row.children[rowNum['price']].getElementsByTagName("input")[0];
 						this.db[c]['price'] = parseFloat(p.value);
 						this.db[c]['priceInput'] = p;
+
+// TODO: reload this when its available.
+						try {
+							this.db[c]['miShipping'] = document.getElementById("yourPriceShippingCharge_price|" + this.db[c].sku + "|" + this.db[c].asin).innerHTML;
+							this.db[c]['miShipping'] =  parseFloat(this.db[c]['miShipping'].match(/[\d\.?]+/));
+						} catch (errr) {
+							console.log(["Missing shipping price for this item", this.db[c].sku]);
+						}
 					} catch (err) {
 						console.log(['error reading inventory', err]);
 					}
@@ -124,12 +126,12 @@ ascc = {
 		  function(request) {
 		    if (request.action == 'save') {
 		    	try {
-					console.log('save requested');
-					ascc.ajaxSave(request.db);
-					//ascc.save(request.db);
-				} catch (e) {
-					ascc.port.postMessage({action: 'exceptionOnSave', page: ascc.page, error: e});
-				}
+						console.log('save requested');
+						ascc.ajaxSave(request.db);
+						//ascc.save(request.db);
+					} catch (e) {
+						ascc.port.postMessage({action: 'exceptionOnSave', page: ascc.page, error: e});
+					}
 		    } else if (request.action == 'flipPage') {
 		    	ascc.goto(request.page);
 		    } else if (request.action == 'updateMarkers') {
@@ -182,11 +184,12 @@ ascc = {
 			if ( (j) && (j.newPrice) && (i.priceInput) && (i.price) ) {
 				if (i.price < j.newPrice) {
 					c = 'green';
-
-					if (!isNaN(j.newPrice))
-						i.priceInput.value = Math.round( j.newPrice * 100) / 100;
 				} else if (i.price > j.newPrice) {
 					c = 'red';
+				}
+				
+				if (!isNaN(j.newPrice)) {
+					i.priceInput.value = Math.round( j.newPrice * 100) / 100;
 				}
 
 				if (c)
@@ -218,18 +221,35 @@ ascc = {
 			action += ".ajax";
 			var params = new Array();
 			var priceMetricDataJsonString = {};
+			var submitData = {};
 
 			for (var e in ascc.db) {
 				var i = ascc.db[e];
 				var j = bgDb[i.asin];
-				var key = 'price|' + i.sku + '|' + i.asin;
-
 
 				if (!j.newPrice) continue;
 
 				if (i.price == j.newPrice) {
 					continue;
 				}
+
+				var encSku = i.id.replace('sku-', '');
+				submitData[encSku] = {};
+				submitData[encSku].getSku = i.sku;
+				submitData[encSku].getAsin = i.asin;
+				submitData[encSku].OLD_PRICE = i.price;
+				submitData[encSku].NEW_PRICE = j.newPrice;
+				submitData[encSku].OLD_INV = '';
+				submitData[encSku].NEW_INV = '';
+				
+				// TODO: this is set in the window.METADATA
+				submitData[encSku].productType = 'BEAUTY';
+				
+				submitData[encSku].priceMetrics = {"lowPriceShippingCharge":null,"lowPriceItemPrice":null,"yourPriceShippingCharge":null,"salePrice":null};
+				submitData[encSku].lowPrice = '';
+				submitData[encSku].HPS = '';
+
+				/* old ajaxSave method.
 
 				i.priceInput.value = Math.round( j.newPrice * 100) / 100;
 
@@ -242,21 +262,22 @@ ascc = {
 						f.elements['HL' + key] = f.elements['HL' + key][index];
 					}
 				}
-				
+
 				params.push(f.elements[key]);
 				params.push(f.elements['H' + key]);
+				*/
 			}
 
-			if (params.length > 0) {
+			submitData = JSON.stringify(submitData);
+
+			if (submitData.length > 0) {
 				f.elements['formOperation'].value = 'ajaxUpdate';
 				params.push(f.elements['formOperation']);
 				params.push(f.elements['marketplaceID']);
 
-				priceMetricDataJsonString = JSON.stringify(priceMetricDataJsonString);
-				var postData = jQuery.param(params) + "&pricingMetricsJson=" + priceMetricDataJsonString;
-
-				console.log(['ascc inject data', action, postData]);
-
+				var postData = jQuery.param(params) + "&changedDataJSON=" + encodeURIComponent(submitData);
+				console.log(['ascc save data', action, postData]);
+				
 				$.ajax({
 					type: "POST",
 					dataType: "json",
@@ -324,5 +345,5 @@ ascc = {
 window.addEventListener( "load", function() {
 	setTimeout(function() {
 			ascc.init();
-		}, 2000);
+		}, 4000);
 }, false );

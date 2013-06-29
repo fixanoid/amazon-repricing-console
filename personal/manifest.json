@@ -35,7 +35,7 @@
       "all_frames": true,
       "run_at": "document_start",
       "js": [ "country.js" ],
-      "matches": [ "https://sellercentral.amazon.com/gp/homepage.html*", "https://sellercentral.amazon.co.uk/gp/homepage.html*", "https://sellercentral.amazon.de/gp/homepage.html*" ]
+      "matches": [ "https://sellercentral.amazon.com/gp/homepage.html*", "https://sellercentral.amazon.co.uk/gp/homepage.html*", "https://sellercentral.amazon.de/gp/homepage.html*", "https://sellercentral.amazon.com/ap/signin*" ]
    } ],
    "description": "Amazon Seller Central Console",
    "icons": {
@@ -54,5 +54,5 @@
 			"http://www.amazon.com/gp/offer-listing/*",
 			"http://www.amazon.co.uk/gp/offer-listing/*",
 			"http://www.amazon.de/gp/offer-listing/*" ],
-   "version": "0.3"
+   "version": "0.4"
 }

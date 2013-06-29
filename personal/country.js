@@ -6,11 +6,11 @@ country = {
 	bu: '',
 	init: function() {
 		var lin = true;
-		country.em = document.getElementById('email');
-		country.pa = document.getElementById('password');
-		country.bu = document.getElementById('sign-in-button');
+		country.em = document.getElementById('ap_email');
+		country.pa = document.getElementById('ap_password');
+		country.bu = document.getElementById('signInSubmit');
 
-		if(country.em && country.pa) {
+		if (country.em && country.pa) {
 			console.log('login page.');
 			lin = false;
 		}
