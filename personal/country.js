@@ -6,9 +6,9 @@ country = {
 	bu: '',
 	init: function() {
 		var lin = true;
-		country.em = document.getElementById('ap_email');
-		country.pa = document.getElementById('ap_password');
-		country.bu = document.getElementById('signInSubmit');
+		country.em = document.getElementById('username');
+		country.pa = document.getElementById('password');
+		country.bu = document.getElementById('sign-in-button');
 
 		if (country.em && country.pa) {
 			console.log('login page.');

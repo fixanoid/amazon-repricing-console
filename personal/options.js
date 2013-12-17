@@ -85,7 +85,11 @@
 	function excludeList() {
 		o = '';
 		for (i = 0; i < exclusions.length; i++) {
-			o += '<span><button id="excluded-' + i + '" alt="delete" ascc-excluded-id="' + i + '">X</button>' + exclusions[i] + '<br></span>';
+			if (exclusions[i].indexOf('.jpg') != -1) {
+				o += '<span><button id="excluded-' + i + '" alt="delete" ascc-excluded-id="' + i + '">X</button><img src="' + exclusions[i] + '"/><br></span>';
+			} else {
+				o += '<span><button id="excluded-' + i + '" alt="delete" ascc-excluded-id="' + i + '">X</button>' + exclusions[i] + '<br></span>';
+			}
 		}
 
 		document.getElementById('excludeList').innerHTML = o;

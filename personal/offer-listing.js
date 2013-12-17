@@ -41,7 +41,7 @@ ol = {
 			});
 
 		// Add exclusions button
-		var sellers = document.getElementsByClassName('sellerInformation');
+		var sellers = document.getElementsByClassName('olpSellerColumn');
 		for (var i = 0; i < sellers.length; i++) {
 			var nl = document.createElement('a');
 			nl.href = '#';
@@ -59,117 +59,118 @@ ol = {
 		var seller, si = o.target.parentNode;
 
 		try {
-			seller = si.children[0].children[0];
+			seller = si.getElementsByClassName('olpSellerName')[0].children[0].children[0];
+
 			if (seller.nodeName == 'IMG') {
-				seller = seller.alt;
+				seller = seller.src;
 			} else {
-				seller = seller.children[1].children[0].textContent;
+				seller = seller.innerHTML;
 			}
 		} catch (errr) {
 			// amazon.com case.
 			seller = 'Amazon.com';
 		}
 
-		// console.log('Posting new exclusion: ' + seller);
+		console.log('Posting new exclusion: ' + seller);
 
 		ol.port.postMessage({action: 'new-exclusion', seller: seller});
 	},
 
 	process: function() {
-		var i, el, p, s, seller, f, lowest, port, cond, excluded = 0,
-		 asin = document.location.href.replace('http://www.amazon.com/gp/offer-listing/', '').replace('http://www.amazon.co.uk/gp/offer-listing/', ''),
-		 c = document.getElementsByClassName('result');
+		var i, j, el, p, s, c, seller, f, lowest, cond, excluded = 0,
+		 asin = document.location.href.replace('http://www.amazon.com/gp/offer-listing/', '').replace('http://www.amazon.co.uk/gp/offer-listing/', '');;
 
 		// extract asin is there is more stuff in the URL
 		if (asin.indexOf('/') > 0) {
 			asin = asin.substring(0, asin.indexOf('/'));
 		}
 
+		// sections: a-section a-spacing-double-large
+		c = document.getElementsByClassName('a-section a-spacing-double-large');
 		for (i = 0; i < c.length; i++) {
-			// detect which bucket its in.
+			// bucket: a-section a-spacing-medium a-spacing-top-medium
+
 			try {
-				var bucket = c[i].parentNode.previousElementSibling;
-				bucket = bucket.getElementsByClassName('buckettitle');
-				bucket = bucket[0].children[0].innerText;
+				bucket = c[i].getElementsByClassName('a-section a-spacing-small')[0].children[0].innerHTML.trim();
 
 				if (ol.buckets.indexOf('item') >= 0 ) {
-					// console.log('Using items bucket:' + ol.itemBucket);
+						// console.log('Using items bucket:' + ol.itemBucket);
 				} else {
-
-					if ( (ol.buckets.indexOf('featured') < 0 ) && (bucket == 'Featured Merchants') ) {
-						// console.log('Skipping featured');
+					if ( (ol.buckets.indexOf('featured') < 0 ) && (bucket.indexOf('Featured Merchants') == 0) ) {
+						//console.log('Skipping featured');
 						continue;
 					}
 
-					if ( (ol.buckets.indexOf('new') < 0 ) && (bucket == 'New') ) {
-						// console.log('Skipping new');
+					if ( (ol.buckets.indexOf('new') < 0 ) && (bucket.indexOf('New') == 0) ) {
+						//console.log('Skipping new');
 						continue;
 					}
 
-					if ( (ol.buckets.indexOf('used') < 0 ) && (bucket == 'Used') ) {
-						// console.log('Skipping used');
+					if ( (ol.buckets.indexOf('used') < 0 ) && (bucket.indexOf('Used') == 0) ) {
+						//console.log('Skipping used');
 						continue;
 					}
 				}
-
 			} catch (err) {
-				console.log('Error determining the bucket');
+				// bucket retrieval failed, new listing style.
 			}
 
-			el = c[i].children[0].children[0];
-
-			try {
-				seller = c[i].children[0].children[2].children[0].children[0].children[0];
-				if (seller.nodeName == 'IMG') {
-					seller = seller.alt;
-				} else {
-					seller = seller.children[1].children[0].textContent;
-				}
-			} catch (errr) {
-				// amazon.com case.
-				seller = 'Amazon.com';
-			}
-
-			// check exclusion list
-			f = false;
-			for (p = 0; p < ol.exclusions.length; p++) {
-				if (seller == ol.exclusions[p]) {
-					f = true;
-					break;
-				}
-			}
-
-			if (f) {
-				// exclusion found
-				excluded++;
-
-				continue;
-			}
-
-			cond = c[i].children[0].children[1].children[0].innerHTML.replace(/\n/g, '');
-
-			try {
-				p = parseFloat(el.children[0].innerHTML.replace('$', '').replace('£', ''));
-
+			// offer entry
+			el = c[i].getElementsByClassName('olpOffer');
+			for (j = 0; j < el.length; j++) {
+				// seller
 				try {
-					s = parseFloat(el.children[1].children[0].innerHTML.replace('+ $', '').replace('+ £', ''));
-				} catch (ee) {
-					s = parseFloat(el.children[2].children[0].innerHTML.replace('+ $', '').replace('+ £', ''));
+					seller = el[j].getElementsByClassName('olpSellerName')[0].children[0].children[0];
+
+					if (seller.nodeName == 'IMG') {
+						seller = seller.src;
+					} else {
+						seller = seller.innerHTML;
+					}
+				} catch (errr) {
+					// amazon.com case.
+					seller = 'Amazon.com';
 				}
 
-				f = Math.round( (p + (s ? s : 0)) * 100) / 100;
+				// check exclusion list
+				f = false;
+				for (p = 0; p < ol.exclusions.length; p++) {
+					if (seller == ol.exclusions[p]) {
+						f = true;
+						break;
+					}
+				}
 
-				if ( (ol.buckets.indexOf('item') >= 0 ) && (cond != ol.itemBucket) ) {
+				if (f) {
 					continue;
 				}
-				
-				if (!lowest) {
-					lowest = f;
-				} else if (lowest > f) {
-					lowest = f;
-				}
-			} catch (e) { }
+
+				cond = el[j].getElementsByClassName('olpCondition')[0].innerHTML.replace(/\n/g, '').trim();
+
+				try {
+					p = parseFloat(el[j].getElementsByClassName('olpOfferPrice')[0].innerHTML.replace('$', '').replace('£', ''));
+					
+					try {
+						s = parseFloat(el[j].getElementsByClassName('olpShippingPrice')[0].innerHTML.replace('$', '').replace('£', ''));
+					} catch (e) {
+						s = 0;
+					}
+
+					f = Math.round( (p + (s ? s : 0)) * 100) / 100;
+
+					if ( (ol.buckets.indexOf('item') >= 0 ) && (cond != ol.itemBucket) ) {
+						continue;
+					}
+						
+					if (!lowest) {
+						lowest = f;
+					} else if (lowest > f) {
+						lowest = f;
+					}
+				} catch (e) { }
+			}
 		}
+		
 
 		if (!lowest) {
 			// it appears that we did not find any prices, check if there were too many exclusions?
@@ -178,7 +179,7 @@ ol = {
 
 				var nextPage = document.location.href;
 				nextPage = nextPage.replace('startIndex=0', 'startIndex=15');
-				document.location.href = nextPage;
+				//document.location.href = nextPage;
 			}
 		}
 

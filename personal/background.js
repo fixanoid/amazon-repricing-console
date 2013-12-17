@@ -13,6 +13,7 @@ chrome.webRequest.onHeadersReceived.addListener(stripHeaders, {
 	urls: ["http://www.amazon.com/gp/offer-listing/*",
 			   "http://www.amazon.co.uk/gp/offer-listing/*",
 			   "http://www.amazon.de/gp/offer-listing/*",
+			   "https://sellercentral.amazon.com/myi/*",
 			   "https://sellercentral.amazon.com/ap/signin*"]},
 	['blocking', "responseHeaders"]);
 
