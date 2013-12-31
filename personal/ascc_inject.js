@@ -256,7 +256,7 @@ ascc = {
 				submitData[encSku].getSku = i.sku;
 				submitData[encSku].getAsin = i.asin;
 				submitData[encSku].OLD_PRICE = i.price.toString();
-				submitData[encSku].NEW_PRICE = j.newPrice.toString();
+				submitData[encSku].NEW_PRICE = ascc.format(j.newPrice.toString());
 				submitData[encSku].OLD_INV = '';
 				submitData[encSku].NEW_INV = '';
 
@@ -265,8 +265,7 @@ ascc = {
 				submitData[encSku].OLD_MINPRICE = '';
 				submitData[encSku].NEW_MINPRICE = '';
 				
-				// TODO: this is set in the window.METADATA
-				submitData[encSku].productType = 'BEAUTY';
+				submitData[encSku].productType = METADATA.rowData[encSku].productType;
 				
 				submitData[encSku].priceMetrics = {"lowPriceShippingCharge":null,"lowPriceItemPrice":null,"yourPriceShippingCharge":null,"salePrice":null};
 				submitData[encSku].lowPrice = '';
@@ -282,8 +281,18 @@ ascc = {
 
 				var postData = jQuery.param(params) + "&csrfToken=" + encodeURIComponent(ascc.csrfToken) + "&changedDataJSON=" + encodeURIComponent(submitData);
 
-				//console.log(postData);
+				console.log(postData);
+/*
+formOperation:ajaxUpdate
+marketplaceID:ATVPDKIKX0DER
+csrfToken:gEyZmU9ETHgm2X3kKI7+DOr9p5I3WU6nGorLgVoAAAACAAAAAFLDJCJyYXcAAAAA
+changedDataJSON:{"Tk4tSVpKVC03TjNW":{"getSku":"NN-IZJT-7N3V","getAsin":"B00BAXYL6U","OLD_PRICE":"48.4","NEW_PRICE":"68.99","OLD_INV":"","NEW_INV":"","OLD_MAXPRICE":"","NEW_MAXPRICE":"","OLD_MINPRICE":"","NEW_MINPRICE":"","productType":"MISC_OTHER","priceMetrics":{"lowPriceShippingCharge":null,"lowPriceItemPrice":null,"yourPriceShippingCharge":null,"salePrice":null},"lowPrice":"","HPS":""},"OTItSVpWQy1MUE0y":{"getSku":"92-IZVC-LPM2","getAsin":"B00BC0KXCW","OLD_PRICE":"36.2","NEW_PRICE":"37.788","OLD_INV":"","NEW_INV":"","OLD_MAXPRICE":"","NEW_MAXPRICE":"","OLD_MINPRICE":"","NEW_MINPRICE":"","productType":"BEAUTY","priceMetrics":{"lowPriceShippingCharge":null,"lowPriceItemPrice":null,"yourPriceShippingCharge":null,"salePrice":null},"lowPrice":"","HPS":""},"SkUtOTVXWi1TT1lD":{"getSku":"JE-95WZ-SOYC","getAsin":"B002RGRJC2","OLD_PRICE":"36.74","NEW_PRICE":"37.788","OLD_INV":"","NEW_INV":"","OLD_MAXPRICE":"","NEW_MAXPRICE":"","OLD_MINPRICE":"","NEW_MINPRICE":"","productType":"BEAUTY","priceMetrics":{"lowPriceShippingCharge":null,"lowPriceItemPrice":null,"yourPriceShippingCharge":null,"salePrice":null},"lowPrice":"","HPS":""},"NTQtSURDUy1UQkxV":{"getSku":"54-IDCS-TBLU","getAsin":"B0013945CQ","OLD_PRICE":"30.39","NEW_PRICE":"32.388","OLD_INV":"","NEW_INV":"","OLD_MAXPRICE":"","NEW_MAXPRICE":"","OLD_MINPRICE":"","NEW_MINPRICE":"","productType":"BEAUTY","priceMetrics":{"lowPriceShippingCharge":null,"lowPriceItemPrice":null,"yourPriceShippingCharge":null,"salePrice":null},"lowPrice":"","HPS":""},"NzMtMzM2Si1QRjFE":{"getSku":"73-336J-PF1D","getAsin":"B0046HHFRE","OLD_PRICE":"15.99","NEW_PRICE":"20.988000000000003","OLD_INV":"","NEW_INV":"","OLD_MAXPRICE":"","NEW_MAXPRICE":"","OLD_MINPRICE":"","NEW_MINPRICE":"","productType":"BEAUTY","priceMetrics":{"lowPriceShippingCharge":null,"lowPriceItemPrice":null,"yourPriceShippingCharge":null,"salePrice":null},"lowPrice":"","HPS":""},"U04tWktZSC1aVTFG":{"getSku":"SN-ZKYH-ZU1F","getAsin":"B00D8DSDHS","OLD_PRICE":"16.59","NEW_PRICE":"18.588","OLD_INV":"","NEW_INV":"","OLD_MAXPRICE":"","NEW_MAXPRICE":"","OLD_MINPRICE":"","NEW_MINPRICE":"","productType":"BEAUTY","priceMetrics":{"lowPriceShippingCharge":null,"lowPriceItemPrice":null,"yourPriceShippingCharge":null,"salePrice":null},"lowPrice":"","HPS":""},"U1ktU1kwRS1NTU8z":{"getSku":"SY-SY0E-MMO3","getAsin":"B00375L8JC","OLD_PRICE":"15.95","NEW_PRICE":"18.948","OLD_INV":"","NEW_INV":"","OLD_MAXPRICE":"","NEW_MAXPRICE":"","OLD_MINPRICE":"","NEW_MINPRICE":"","productType":"BEAUTY","priceMetrics":{"lowPriceShippingCharge":null,"lowPriceItemPrice":null,"yourPriceShippingCharge":null,"salePrice":null},"lowPrice":"","HPS":""},"NDUtOUk3OC1DWkYw":{"getSku":"45-9I78-CZF0","getAsin":"B009NT6KD0","OLD_PRICE":"59.39","NEW_PRICE":"65.388","OLD_INV":"","NEW_INV":"","OLD_MAXPRICE":"","NEW_MAXPRICE":"","OLD_MINPRICE":"","NEW_MINPRICE":"","productType":"BEAUTY","priceMetrics":{"lowPriceShippingCharge":null,"lowPriceItemPrice":null,"yourPriceShippingCharge":null,"salePrice":null},"lowPrice":"","HPS":""},"MkQtWTNCWS1KWk0z":{"getSku":"2D-Y3BY-JZM3","getAsin":"B003E0W9W0","OLD_PRICE":"15.47","NEW_PRICE":"18.468","OLD_INV":"","NEW_INV":"","OLD_MAXPRICE":"","NEW_MAXPRICE":"","OLD_MINPRICE":"","NEW_MINPRICE":"","productType":"HEALTH_PERSONAL_CARE","priceMetrics":{"lowPriceShippingCharge":null,"lowPriceItemPrice":null,"yourPriceShippingCharge":null,"salePrice":null},"lowPrice":"","HPS":""},"TFItUU9MMS1VUUQw":{"getSku":"LR-QOL1-UQD0","getAsin":"B0054Y1JJI","OLD_PRICE":"58.96","NEW_PRICE":"60.0162","OLD_INV":"","NEW_INV":"","OLD_MAXPRICE":"","NEW_MAXPRICE":"","OLD_MINPRICE":"","NEW_MINPRICE":"","productType":"PERSONAL_CARE_APPLIANCE","priceMetrics":{"lowPriceShippingCharge":null,"lowPriceItemPrice":null,"yourPriceShippingCharge":null,"salePrice":null},"lowPrice":"","HPS":""}}
 
+formOperation:ajaxUpdate
+marketplaceID:ATVPDKIKX0DER
+csrfToken:gLM/e+Ahky7nLeOaOXtZbt72SzIpHWVPpDkUbKoAAAACAAAAAFLDIx5yYXcAAAAA
+changedDataJSON:{"Tk4tSVpKVC03TjNW":{"getSku":"NN-IZJT-7N3V","getAsin":"B00BAXYL6U","OLD_PRICE":"48.39","NEW_PRICE":"48.40","OLD_INV":"","NEW_INV":"","OLD_MAXPRICE":"","NEW_MAXPRICE":"","OLD_MINPRICE":"","NEW_MINPRICE":"","productType":"MISC_OTHER","priceMetrics":{"lowPriceShippingCharge":null,"lowPriceItemPrice":null,"yourPriceShippingCharge":null,"salePrice":null},"lowPrice":"","HPS":""}}
+*/
 				$.ajax({
 					type: "POST",
 					dataType: "json",
@@ -346,6 +355,18 @@ ascc = {
 		newstr = str.replace(/^\s*/, "").replace(/\s*$/, ""); 
 		newstr = newstr.replace(/\s{2,}/, " "); 
 		return newstr;
+	},
+
+	format: function (value) {
+		if (!value) { return ''; }
+		var value = value.toString().split('.');
+		var cent = value.length == 1 ? '' : ( value[1].length == 1 ? "." + value[1] + "0" : "." + value[1].substring(0,2) );
+
+		if (!cent) {
+			cent = '.00';
+		}
+
+		return(value[0] + cent);
 	}
 }
 

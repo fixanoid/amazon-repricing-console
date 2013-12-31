@@ -17,7 +17,7 @@
 	   		s += '<td>' + bg.db[i].sku + '</td>';
 	   		s += '<td>' + bg.db[i].name + '</td>';
 	   		s += '<td>' + (bg.db[i].isAfn ? 'AFN' : 'Merchant') + '</td>';
-			s += '<td>' + bg.db[i].condition + '</td>';
+			s += '<td>' + (bg.db[i].condition ? bg.db[i].condition : '') + '</td>';
 	   		s += '<td>' + format((bg.db[i].price ? bg.db[i].price : '')) + '</td>';
 	   		s += '<td>' + format(bg.db[i].lowestCompetitor ? bg.db[i].lowestCompetitor : '') + '</td>';
 	   		
