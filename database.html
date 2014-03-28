@@ -1,0 +1,62 @@
+<!doctype html>
+
+<html>
+<head>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+
+	<style>
+	body {
+		padding-left:5px;
+		padding-right:5px;
+	}
+
+	.header {
+		padding:10px;
+	}
+
+	.header button{
+		margin-left:5px;
+	}
+	</style>
+
+	<script type="text/javascript" src="database.js"></script>
+</head>
+<body>
+	<div class="header">
+		<span>Currently known database</span>
+		<button id="loadItems" type="button" class="btn btn-primary btn-sm">Load items from Amazon</button>
+		<button id="updateCompetitors" type="button" class="btn btn-primary btn-sm">Update Competitors Prices</button>
+		<button id="applyDefaultMargin" type="button" class="btn btn-primary btn-sm">Apply Default Margin</button>
+		<button id="applyDefaultShipping" type="button" class="btn btn-primary btn-sm">Apply Default Shipping</button>
+		<button id="resetDb" type="button" class="btn btn-primary btn-sm">Reset Database</button>
+		<button id="options" type="button" class="btn btn-primary btn-sm">Open Options</button> <img src="images/loader.gif" id="loader" style="vertical-align:text-top; display:none;">
+	</div>
+
+	<div>
+		<table class="table table-bordered table-striped table-condensed">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>ASIN/ISBN</th>
+					<th>SKU</th>
+					<th>Name</th>
+					<th>Fulfilled By</th>
+					<th>Condition</th>
+					<th>Your Price</th>
+					<th>Lowest Competitor</th>
+					<th>Original</th>
+					<th>Shipping</th>
+					<th>Margin</th>
+					<th>Minimum</th>
+					<th>New Price</th>
+				</tr>
+			</thead>
+			<tbody id="db">
+				
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!doctype html>
+
+<html>
+<head>
+<style>
+#content {
+	width:750px;
+	margin:0px auto;
+	text-align:left;
+	padding-top:5px;
+}
+
+body {
+  background: #fff;
+  font-size: small;
+  margin:5px 0px; padding:0px;
+  text-align:center;
+}
+
+#newExclude {
+	width: 200px !important;
+	display: inherit !important;
+}
+</style>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<script type="text/javascript" src="options.js"></script>
+	<script type="text/javascript" src="math-processor.js"></script>
+	<script src="js/jquery-2.1.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+<style>
+.popover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1010;
+  display: none;
+  max-width: 600px;
+  padding: 1px;
+  text-align: left;
+  white-space: normal;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+     -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding-box;
+     -moz-background-clip: padding;
+          background-clip: padding-box;
+}
+</style>
+</head>
+<body>
+<div id="content">
+	<table class="table table-bordered table-condensed">
+		<tr><th colspan="2"><h4>RepricingConsole for Amazon.com Options</h4></th></tr>
+
+		<tr><th colspan="2">Exclusions</th></tr>
+		<tr>
+			<td>Exclude sellers</td>
+			<td>
+				<input type="text" class="form-control" value="" id="newExclude"> <button id="addExclude" type="button" class="btn btn-primary btn-sm">Add</button>
+			</td>
+		</tr>
+		<tr>
+			<td>Currently excluded:</td>
+			<td id="excludeList"></td>
+		</tr>
+
+		<tr><th colspan="2">Formulas <i id="formula-vars" class="fa fa-question-circle" style="cursor:pointer;"></i></th></tr>
+		<tr>
+			<td>AFN Minimum Price</td>
+			<td>
+				<input type="text" value="" id="afnMinimumFormula" class="form-control">
+				<div id="afnMinimumFormulaString"></div>
+				<div id="afnMinimumFormulaExample"></div>
+			</td>
+		</tr>
+		<tr>
+			<td>Merchant Minimum Price</td>
+			<td>
+				<input type="text" value="" id="merchantMinimumFormula" class="form-control">
+				<div id="merchantMinimumFormulaString"></div>
+				<div id="merchantMinimumFormulaExample"></div>
+			</td>
+		</tr>
+		<tr><th colspan="2">Percentages</th></tr>
+		<tr>
+			<td>AFN overhead</td>
+			<td>
+				<input type="text" value="" id="afnPercentage"  class="form-control">
+			</td>
+		</tr>
+
+		<tr>
+			<td>Merchant overhead</td>
+			<td>
+				<input type="text" value="" id="merchantPercentage" class="form-control">
+			</td>
+		</tr>
+
+		<tr><th colspan="2">Other</th></tr>
+
+		<tr>
+			<td>Step in cents (&cent;)</td>
+			<td>
+				<input type="text" value="" id="step" class="form-control">
+			</td>
+		</tr>
+
+		<tr>
+			<td>Default margin ($)</td>
+			<td>
+				<input type="text" value="" id="defaultMargin" class="form-control">
+			</td>
+		</tr>
+
+		<tr>
+			<td>Default shipping ($)</td>
+			<td>
+				<input type="text" value="" id="defaultShipping" class="form-control">
+			</td>
+		</tr>
+
+		<tr>
+			<td>Compare buckets</td>
+			<td>
+				<input type="checkbox" id="bucketFeatured"> Featured |
+				<input type="checkbox" id="bucketNew"> New |
+				<input type="checkbox" id="bucketUsed"> Used |
+				<input type="checkbox" id="bucketItem"> Use items bucket
+			</td>
+		</tr>
+
+		<tr><th colspan="2">Amazon Information</th></tr>
+
+		<tr>
+			<td>SellerCentral Login</td>
+			<td>
+				<input type="text" value="" id="amazonLogin" class="form-control" style="width:200px;">
+			</td>
+		</tr>
+
+		<tr>
+			<td>SellerCentral Password</td>
+			<td>
+				<input type="password" value="" id="amazonPass" class="form-control" style="width:200px;">
+			</td>
+		</tr>
+
+		<tr><th colspan="2">Subscription Status</th></tr>
+
+		<tr>
+			<td>Tier</td>
+			<td><span id="tier" style="font-weight: bold;"></span> <button id="buy" type="button" class="btn btn-primary btn-sm">Buy</button></td>
+		</tr>
+
+		<tr>
+			<td>Expiration</td>
+			<td id="expiry">DATE</td>
+		</tr>
+	</table>
+</div>
+</body>
+</html>

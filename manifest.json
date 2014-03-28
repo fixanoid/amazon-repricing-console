@@ -1,0 +1,64 @@
+{
+   "manifest_version": 2,
+   "background": {
+      "page": "background.html"
+   },
+   "web_accessible_resources": [
+      "images/down.gif",
+      "images/loader.gif",
+      "images/same.gif",
+      "images/up.gif",
+      "database.html",
+      "options.html"
+  ],
+   "browser_action": {
+      "default_icon": "images/ascc32.png",
+      "default_title": "RepricingConsole for Amazon.com",
+      "default_popup": "popup.html"
+   },
+   "content_scripts": [ {
+      "all_frames": true,
+      "run_at": "document_start",
+      "js": [ "js/jquery-2.1.0.min.js" ],
+      "matches": [ "https://sellercentral.amazon.com/*", "https://sellercentral.amazon.co.uk/*", "https://sellercentral.amazon.de/*" ]
+   }, {
+      "all_frames": true,
+      "run_at": "document_start",
+      "js": [ "ascc_inject.js" ],
+      "matches": [ "https://sellercentral.amazon.com/*", "https://sellercentral.amazon.co.uk/*", "https://sellercentral.amazon.de/*" ]
+   }, {
+      "all_frames": true,
+      "run_at": "document_start",
+      "js": [ "offer-listing.js" ],
+      "matches": [ "http://www.amazon.com/gp/offer-listing/*", "http://www.amazon.co.uk/gp/offer-listing/*", "http://www.amazon.de/gp/offer-listing/*" ]
+   }, {
+      "all_frames": true,
+      "run_at": "document_start",
+      "js": [ "country.js" ],
+      "matches": [ "https://sellercentral.amazon.com/gp/homepage.html*", "https://sellercentral.amazon.co.uk/gp/homepage.html*", "https://sellercentral.amazon.de/gp/homepage.html*", "https://sellercentral.amazon.com/ap/signin*" ]
+   }, {
+      "all_frames": true,
+      "run_at": "document_start",
+      "js": [ "home.js" ],
+      "matches": [ "http://*.repricingconsole.com/*" ]
+   } ],
+   "description": "RepricingConsole for Amazon.com",
+   "homepage_url": "http://repricingconsole.com",
+   "icons": {
+      "128": "images/ascc128.png",
+      "16": "images/ascc16.png",
+      "32": "images/ascc32.png",
+      "64": "images/ascc64.png"
+   },
+   "options_page": "options.html",
+   "name": "RepricingConsole for Amazon.com",
+   "permissions": [ 
+   		"tabs",
+   		"webRequest",
+   		"webRequestBlocking",
+   		"https://sellercentral.amazon.com/*",
+			"http://www.amazon.com/gp/offer-listing/*",
+			"http://www.amazon.co.uk/gp/offer-listing/*",
+			"http://www.amazon.de/gp/offer-listing/*" ],
+   "version": "3"
+}

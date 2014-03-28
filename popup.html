@@ -1,0 +1,39 @@
+<!doctype html>
+
+<html>
+<head>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+<style>
+* {
+  border: 0;
+  margin: 0;
+  padding: 2px;
+}
+
+body {
+  width: 250px;
+  height: auto;
+  background: #fff;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-family: "Verdana";
+  font-size: small;
+}
+
+span {
+  font-weight: bold;
+}
+</style>
+
+<script type="text/javascript" src="popup.js"></script>
+</head>
+<body>
+	<div>Background: <span id="status"></span> <button id="save" class="btn btn-primary btn-sm"></button></div>
+	<div>Background status: <span id="currentStatus"></span></div>
+	<div>Background runs: <span id="runs"></span></div>
+	<br><br>
+	<div><button id="db" class="btn btn-primary btn-sm">Open Database</button> <button id="options" class="btn btn-primary btn-sm">Open Options</button></div>
+</body>
+</html>
