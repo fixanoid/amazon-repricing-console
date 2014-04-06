@@ -1,3 +1,9 @@
+/*
+	TODO:
+		- underscore database manipulation
+*/
+
+
 var VERSION = (function () {
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET', chrome.extension.getURL('manifest.json'), false);
@@ -293,7 +299,7 @@ function heartbeatSensor() {
  * iframe loads.
  */
 var updatingCompetitors = false, lastAsin;
-function updateCompetitors() {
+function updateCompetitors(manual) {
 	createFrames();
 
 	var i, j, f, next = false, a = [], count = 0;
@@ -301,12 +307,14 @@ function updateCompetitors() {
 
 	for (i in db) {
 		// skipping items that are missing required info: original, shipping, or margin
-		if (db[i].isAfn) {
-			if ( (!db[i].margin) || (!db[i].originalPrice) )
-				continue;
-		} else {
-			if ( (!db[i].margin) || (!db[i].originalPrice) || (!db[i].shipping) )
-				continue;
+		if (!manual) {
+			if (db[i].isAfn) {
+				if ( (!db[i].margin) || (!db[i].originalPrice) )
+					continue;
+			} else {
+				if ( (!db[i].margin) || (!db[i].originalPrice) || (!db[i].shipping) )
+					continue;
+			}
 		}
 
 		if (lastAsin) {
@@ -341,7 +349,7 @@ function updateCompetitors() {
 			a = [];
 
 			setTimeout(function() {
-					updateCompetitors();
+					updateCompetitors(manual);
 				}, frameSecInterval * 1000);
 
 			next = true;

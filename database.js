@@ -193,8 +193,67 @@
 			return;
 		}
 
+		$('#updateCompetitors').popover('destroy');
+
+		if (_.isEmpty(bg.db)) {
+			$('#updateCompetitors').popover({
+				title:'Database Empty',
+				placement:'bottom',
+				content:'You will need to load your items from the seller central first.'
+			});
+
+			$('#updateCompetitors').popover('show');
+
+			setTimeout(function() {
+				$('#updateCompetitors').popover('destroy');
+			}, 3 * 1000);
+
+			return;
+		}
+
+		var readyDb = _.filter(bg.db, function(entry) {
+				if (entry.isAfn) {
+					if ( (!entry.margin) || (!entry.originalPrice) )
+						return false;
+				} else {
+					if ( (!entry.margin) || (!entry.originalPrice) || (!entry.shipping) )
+						return false;
+				}
+
+				return true;
+		});
+
+		var manual = true;
+		if (_.isEmpty(readyDb)) {
+			$('#updateCompetitors').popover({
+				title:'Warning',
+				placement:'bottom',
+				content:'Manual competitor price retrieval will now occur, but for automated repricing you will need to fill in the items margin, shipping, and original prices.'
+			});
+
+			$('#updateCompetitors').popover('show');
+
+			setTimeout(function() {
+				$('#updateCompetitors').popover('destroy');
+			}, 5 * 1000);
+		} else if (_.size(readyDb) != _.size(bg.db)) {
+			$('#updateCompetitors').popover({
+				title:'Warning',
+				placement:'bottom',
+				content:'Retrieving prices only for items that are completely set up.'
+			});
+
+			$('#updateCompetitors').popover('show');
+
+			setTimeout(function() {
+				$('#updateCompetitors').popover('destroy');
+			}, 5 * 1000);
+
+			manual = false;
+		}
+
 		document.getElementById('loader').style.display = '';
-		bg.updateCompetitors();
+		bg.updateCompetitors(manual);
 
 		setInterval(function() {
 			if (!bg.updatingCompetitors) {
