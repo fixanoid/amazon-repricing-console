@@ -24,22 +24,27 @@
    }, {
       "all_frames": true,
       "run_at": "document_start",
-      "js": [ "ascc_inject.js" ],
+      "js": [ "lib/injects/ascc-inject.js" ],
       "matches": [ "https://sellercentral.amazon.com/*", "https://sellercentral.amazon.co.uk/*", "https://sellercentral.amazon.de/*" ]
    }, {
       "all_frames": true,
       "run_at": "document_start",
-      "js": [ "offer-listing.js" ],
+      "js": [ "lib/injects/offer-listing.js" ],
       "matches": [ "http://www.amazon.com/gp/offer-listing/*", "http://www.amazon.co.uk/gp/offer-listing/*", "http://www.amazon.de/gp/offer-listing/*" ]
    }, {
       "all_frames": true,
       "run_at": "document_start",
-      "js": [ "country.js" ],
+      "js": [ "lib/injects/country.js" ],
       "matches": [ "https://sellercentral.amazon.com/gp/homepage.html*", "https://sellercentral.amazon.co.uk/gp/homepage.html*", "https://sellercentral.amazon.de/gp/homepage.html*", "https://sellercentral.amazon.com/ap/signin*" ]
    }, {
       "all_frames": true,
       "run_at": "document_start",
-      "js": [ "home.js" ],
+      "js": [ "lib/injects/own-store.js" ],
+      "matches": [ "https://sellercentral.amazon.com/gp/help-content/home.html*", "https://sellercentral.amazon.co.uk/gp/help-content/home.html*", "https://sellercentral.amazon.de/gp/help-content/home.html*", "https://sellercentral.amazon.com/gp/on-board/configuration/global-seller-profile/index.html*", "https://sellercentral.amazon..co.uk/gp/on-board/configuration/global-seller-profile/index.html*", "https://sellercentral.amazon.de/gp/on-board/configuration/global-seller-profile/index.html*" ]
+   }, {
+      "all_frames": true,
+      "run_at": "document_start",
+      "js": [ "lib/injects/home.js" ],
       "matches": [ "http://*.repricingconsole.com/*" ]
    } ],
    "description": "RepricingConsole for Amazon.com",

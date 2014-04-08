@@ -25,8 +25,8 @@ body {
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<script type="text/javascript" src="options.js"></script>
-	<script type="text/javascript" src="math-processor.js"></script>
+	<script type="text/javascript" src="lib/options.js"></script>
+	<script type="text/javascript" src="lib/math-processor.js"></script>
 	<script src="js/jquery-2.1.0.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 
@@ -70,7 +70,14 @@ body {
 		</tr>
 		<tr>
 			<td>Currently excluded:</td>
-			<td id="excludeList"></td>
+			<td>
+				<div><span id="ownStore">Own store: </span> <button id="addOwn" type="button" class="btn btn-primary btn-sm" style="margin-left: 20px;">Load From Amazon</button> <img src="images/loader.gif" id="loader" style="vertical-align:text-top; display:none;"></div>
+				<hr/>
+				<div id="excludeList">
+
+				</div>
+
+			</td>
 		</tr>
 
 		<tr><th colspan="2">Formulas <i id="formula-vars" class="fa fa-question-circle" style="cursor:pointer;"></i></th></tr>
