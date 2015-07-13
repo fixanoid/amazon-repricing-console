@@ -25,7 +25,12 @@
       "all_frames": true,
       "run_at": "document_start",
       "js": [ "lib/injects/ascc-inject.js" ],
-      "matches": [ "https://sellercentral.amazon.com/*", "https://sellercentral.amazon.co.uk/*", "https://sellercentral.amazon.de/*" ]
+      "matches": [ "https://sellercentral.amazon.com/myi/*", "https://sellercentral.amazon.co.uk/myi/*", "https://sellercentral.amazon.de/myi/*" ]
+   }, {
+      "all_frames": true,
+      "run_at": "document_start",
+      "js": [ "lib/injects/inventory.js" ],
+      "matches": [ "https://sellercentral.amazon.com/hz/inventory*", "https://sellercentral.amazon.co.uk/hz/inventory*", "https://sellercentral.amazon.de/hz/inventory*" ]
    }, {
       "all_frames": true,
       "run_at": "document_start",
@@ -65,5 +70,5 @@
 			"http://www.amazon.com/gp/offer-listing/*",
 			"http://www.amazon.co.uk/gp/offer-listing/*",
 			"http://www.amazon.de/gp/offer-listing/*" ],
-   "version": "3.3"
+   "version": "4.0"
 }
