@@ -2,6 +2,16 @@
 
 <html>
 <head>
+	<title>Options | Repricing Console</title>
+
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<script type="text/javascript" src="lib/options.js"></script>
+	<script type="text/javascript" src="lib/math-processor.js"></script>
+	<script src="js/jquery-2.1.0.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+
 <style>
 #content {
 	width:750px;
@@ -11,48 +21,39 @@
 }
 
 body {
-  background: #fff;
-  font-size: small;
-  margin:5px 0px; padding:0px;
-  text-align:center;
+	background: #fff;
+	font-size: small;
+	margin:5px 0px; padding:0px;
+	text-align:center;
 }
 
 #newExclude {
 	width: 200px !important;
 	display: inherit !important;
 }
-</style>
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<script type="text/javascript" src="lib/options.js"></script>
-	<script type="text/javascript" src="lib/math-processor.js"></script>
-	<script src="js/jquery-2.1.0.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
 
-<style>
 .popover {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1010;
-  display: none;
-  max-width: 600px;
-  padding: 1px;
-  text-align: left;
-  white-space: normal;
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  -webkit-border-radius: 6px;
-     -moz-border-radius: 6px;
-          border-radius: 6px;
-  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-     -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  -webkit-background-clip: padding-box;
-     -moz-background-clip: padding;
-          background-clip: padding-box;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1010;
+	display: none;
+	max-width: 600px;
+	padding: 1px;
+	text-align: left;
+	white-space: normal;
+	background-color: #ffffff;
+	border: 1px solid #ccc;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding;
+	background-clip: padding-box;
 }
 </style>
 </head>
@@ -101,7 +102,7 @@ body {
 		<tr>
 			<td>AFN overhead</td>
 			<td>
-				<input type="text" value="" id="afnPercentage"  class="form-control">
+				<input type="text" value="" id="afnPercentage"	class="form-control">
 			</td>
 		</tr>
 

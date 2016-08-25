@@ -35,7 +35,7 @@
       "all_frames": true,
       "run_at": "document_start",
       "js": [ "lib/injects/offer-listing.js" ],
-      "matches": [ "http://www.amazon.com/gp/offer-listing/*", "http://www.amazon.co.uk/gp/offer-listing/*", "http://www.amazon.de/gp/offer-listing/*" ]
+      "matches": [ "https://www.amazon.com/gp/offer-listing/*", "https://www.amazon.co.uk/gp/offer-listing/*", "https://www.amazon.de/gp/offer-listing/*" ]
    }, {
       "all_frames": true,
       "run_at": "document_start",
@@ -62,13 +62,13 @@
    },
    "options_page": "options.html",
    "name": "RepricingConsole for Amazon.com",
-   "permissions": [ 
+   "permissions": [
    		"tabs",
    		"webRequest",
    		"webRequestBlocking",
    		"https://sellercentral.amazon.com/*",
-			"http://www.amazon.com/gp/offer-listing/*",
-			"http://www.amazon.co.uk/gp/offer-listing/*",
-			"http://www.amazon.de/gp/offer-listing/*" ],
-   "version": "4.2"
+			"https://www.amazon.com/gp/offer-listing/*",
+			"https://www.amazon.co.uk/gp/offer-listing/*",
+			"https://www.amazon.de/gp/offer-listing/*" ],
+   "version": "4.3.0"
 }
